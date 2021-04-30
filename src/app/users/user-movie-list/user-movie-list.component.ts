@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { UserService } from './../user.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-user-movie-list',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserMovieListComponent implements OnInit {
 
-  constructor() { }
+  users: User[] = [];
+  constructor(private service: UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+   
   }
 
 }

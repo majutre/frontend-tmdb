@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from './../user.model';
+import { UserService } from './../user.service';
 
 @Component({
     selector: 'app-user-form',
@@ -13,11 +14,12 @@ import { User } from './../user.model';
 export class UserFormComponent {
     id: string;
     userForm: FormGroup;
-    editMode: boolean = false;
+    private editMode: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
-        private router: Router,
-        private activatedRoute: ActivatedRoute) { }
+                private router: Router,
+                private activatedRoute: ActivatedRoute,
+                private userService: UserService) { }
 
     ngOnInit(): void {
         this.id = this.activatedRoute.snapshot.params['id'];
@@ -28,7 +30,14 @@ export class UserFormComponent {
             userCpf: ['', Validators.required]
         })
 
-        
+        if (this.id) {
+            this.editMode = true;
+            this.userService.getUser(this.id)
+                .subscribe((user: User) => this.createForm(user));
+        } else {
+            this.editMode = false;
+            this.createForm(this.blankForm());
+        }
     }
 
     get f() {
@@ -41,6 +50,17 @@ export class UserFormComponent {
         }
 
         const user = this.userForm.getRawValue() as User;
+
+        if (this.id) {
+            user._id = this.id;
+            this.edit(user);
+        } else {
+           this.save(user);
+        }
+
+        this.editMode = false;
+        this.resetForm()
+        this.redirectTo();
     }
 
     redirectTo() {
@@ -52,6 +72,14 @@ export class UserFormComponent {
         this.userForm.reset();
     }
 
+    createForm(user: User) {
+        this.userForm = this.formBuilder.group({
+            userName: [user.userName, Validators.required],
+            userEmail: [user.userEmail, [Validators.required, Validators.email]],
+            userCpf: [user.userCpf, Validators.required]
+        })
+    }
+
     private blankForm(): User {
         return {
             _id: null,
@@ -61,11 +89,11 @@ export class UserFormComponent {
         } as User;
     }
 
-    // private save(cliente: Cliente): void {
-    //     this.service.addCliente(cliente).subscribe();
-    // }
+    private save(user: User): void {
+        this.userService.addUser(user);
+    }
 
-    // private edit(cliente: Cliente): void {
-    //     this.service.editCliente(cliente).subscribe();
-    // }
+    private edit(user: User): void {
+        this.userService.editUser(user);
+    }
 }
