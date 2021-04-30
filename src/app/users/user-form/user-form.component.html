@@ -1,0 +1,70 @@
+<div class="row">
+
+  <div class="col-xs-3 col-md-4"></div>
+
+  <div class="card w-50 col-xs-6 col-md-4 mt-3">
+    <div class="card-body">
+
+      <h1>{{ !editMode ? 'Cadastro' : 'Atualização'}} de Cliente</h1>
+      <hr>
+
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" (ngReset)="resetForm()">
+
+        <div class="form-group">
+          <label for="name">Nome Completo</label>
+          <input class="form-control pb-1" formControlName="userName" placeholder="Nome Completo" #userName>
+        </div>
+        <div *ngIf="userForm.controls['userName'].invalid && 
+            (userForm.controls['userName'].dirty || 
+            userForm.controls['userName'].touched)" class="error-msg">
+          <div class="error-type" *ngIf="userForm.controls['userName'].errors.required">
+            O nome é obrigatório.
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input class="form-control" formControlName="userEmail" placeholder="Digite um e-mail válido." #userEmail>
+        </div>
+        <div *ngIf="userForm.controls['userEmail'].invalid && 
+                (userForm.controls['userEmail'].dirty || 
+                userForm.controls['userEmail'].touched)" class="error-msg">
+          <div *ngIf="userForm.controls['userEmail'].errors.required">
+            O e-mail é obrigatório.
+          </div>
+          <div *ngIf="userForm.controls['userEmail'].errors.email">
+            Por favor, preencha um e-mail válido.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cpf">CPF</label>
+          <input class="form-control" formControlName="userCpf" placeholder="Ex.: 000.000.000-00" #userCpf>
+        </div>
+        <div *ngIf="userForm.controls['userCpf'].invalid && 
+                (userForm.controls['userCpf'].dirty ||
+                userForm.controls['userCpf'].touched)" class="error-msg">
+          <div *ngIf="userForm.controls['userCpf'].errors.required">
+            O CPF é obrigatório.
+          </div>
+        </div>
+
+        <div>
+          <button 
+            type="submit" 
+            class="btn btn-primary mr-2"
+            [disabled]="userForm.pristine || userForm.invalid">
+            {{ !editMode ? 'Cadastrar' : 'Salvar'}}
+          </button>
+          <button *ngIf="!editMode" type="reset" class="btn btn-danger">Limpar
+          </button>
+          <button *ngIf="editMode" type="button" class="btn btn-danger" (click)="redirectTo()">Cancelar
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
