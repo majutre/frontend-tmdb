@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,12 +15,13 @@ import { UserService } from './../user.service';
 export class UserFormComponent {
     id: string;
     userForm: FormGroup;
-    private editMode: boolean = false;
+    editMode: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
-                private userService: UserService) { }
+                private userService: UserService,
+                private authService: AuthService) { }
 
     ngOnInit(): void {
         this.id = this.activatedRoute.snapshot.params['id'];
@@ -56,6 +58,7 @@ export class UserFormComponent {
             this.edit(user);
         } else {
            this.save(user);
+           this.authService.createUser(user);
         }
 
         this.editMode = false;

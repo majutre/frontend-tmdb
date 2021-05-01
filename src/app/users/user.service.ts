@@ -25,7 +25,7 @@ export class UserService {
  
   addUser(user: User){
     this.http
-      .post<{message: string, userId: string}>('http://localhost:3000/api/users', user)
+      .post<{message: string, userId: string}>('http://localhost:3000/api/users/signup', user)
       .subscribe((resData) => {
         console.log(resData.message);       
       });
