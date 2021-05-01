@@ -4,7 +4,7 @@
     <a class="navbar-brand" style="cursor: default;">MovieDB API</a>
 
     <li class="nav-item" *ngIf="userIsAuthenticated">
-      <a class="nav-link nb-link" (click)="onLogout()">Logout</a>
+      <a class="nav-link nb-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
     </li>
     <li class="nav-item" *ngIf="!userIsAuthenticated">
       <a class="nav-link nb-link" routerLink="/login">Login</a>
