@@ -9,7 +9,8 @@
                     <img [src]="[imgUrl + movie.poster_path]" alt="">
                     <div class="card-body">
                         <h5 class="card-title">{{ movie.title }}</h5>
-                        <p class="card-text">{{ movie.id }}</p>
+                        <p class="card-text"><i>{{ movie.original_title }}</i></p>
+                        <div class="buttons">
                         <div *ngIf="userIsAuthenticated">
                             <button 
                                 type="button" 
@@ -17,9 +18,10 @@
                                 (click)="onAddMovie(movie.id)">Adicionar
                             </button>
                         </div>
-                        <button type="button" class="btn btn-primary"
+                        <button type="button" class="btn btn-primary mx-2"
                             (click)="onGetDetails(movie.id)">Detalhes
                         </button>
+                        </div>
                     </div>
                 </div>   
           

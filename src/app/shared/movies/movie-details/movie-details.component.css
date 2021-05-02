@@ -1,0 +1,20 @@
+.movie-poster{
+    align-self: center;
+    max-width: 300px;
+}
+
+.movie-title{
+    margin-top: 10px;
+}
+
+.text-box {
+    text-align: center;
+}
+
+.movie-card {
+    text-align: center;
+}
+
+.smaller {
+    font-size: 12px;
+}

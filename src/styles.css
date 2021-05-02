@@ -11,3 +11,7 @@ th,
 td {
   text-align: center;
 }
+
+.no-cursor:hover {
+  cursor: default;
+}

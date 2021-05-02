@@ -13,6 +13,7 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { MovieListComponent } from './shared/movies/movie-list/movie-list.component';
 import { MovieDetailsComponent } from './shared/movies/movie-details/movie-details.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MovieDetailsComponent } from './shared/movies/movie-details/movie-detai
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
