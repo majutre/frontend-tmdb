@@ -1,10 +1,11 @@
 import { AuthService } from './../../core/auth/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from './../user.model';
 import { UserService } from './../user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user-form',
@@ -12,10 +13,11 @@ import { UserService } from './../user.service';
     styleUrls: ['./user-form.component.css']
 })
 
-export class UserFormComponent {
-    id: string;
+export class UserFormComponent implements OnInit, OnDestroy {
+    userId: string;
     userForm: FormGroup;
     editMode: boolean = false;
+    private authStatusSubs: Subscription;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -24,22 +26,25 @@ export class UserFormComponent {
                 private authService: AuthService) { }
 
     ngOnInit(): void {
-        this.id = this.activatedRoute.snapshot.params['id'];
-
+        
         this.userForm = this.formBuilder.group({
             userName: ['', Validators.required],
             userEmail: ['', [Validators.required, Validators.email]],
             userCpf: ['', Validators.required]
-        })
+        });
 
-        if (this.id) {
+        this.userId = this.authService.getUserId();
+
+        if (this.userId) {
             this.editMode = true;
-            this.userService.getUser(this.id)
+            this.userService.getUser(this.userId)
                 .subscribe((user: User) => this.createForm(user));
         } else {
             this.editMode = false;
             this.createForm(this.blankForm());
         }
+
+        this.authStatusSubs = this.authService.getAuthStatusListener().subscribe();
     }
 
     get f() {
@@ -53,14 +58,13 @@ export class UserFormComponent {
 
         const user = this.userForm.getRawValue() as User;
 
-        if (this.id) {
-            user._id = this.id;
+        if (this.userId) {
+            user._id = this.userId;
             this.edit(user);
         } else {
-           this.save(user);
-           this.authService.createUser(user);
+           this.authService.createUser(user);      
         }
-
+    
         this.editMode = false;
         this.resetForm()
         this.redirectTo();
@@ -83,6 +87,7 @@ export class UserFormComponent {
         })
     }
 
+
     private blankForm(): User {
         return {
             _id: null,
@@ -92,11 +97,16 @@ export class UserFormComponent {
         } as User;
     }
 
-    private save(user: User): void {
-        this.userService.addUser(user);
-    }
+    // private save(user: User): void {
+    //     this.userService.addUser(user);
+    // }
 
     private edit(user: User): void {
         this.userService.editUser(user);
+    }
+
+
+    ngOnDestroy() {
+        this.authStatusSubs.unsubscribe();
     }
 }
