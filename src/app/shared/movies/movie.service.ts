@@ -36,10 +36,13 @@ export class MovieService {
   }
 
   addMovie(movieId: number, userId: string) {
-    console.log(movieId);
+    const data = {
+      movieId: movieId,
+      userId: userId
+    }
 
     this.http
-      .post<{ movieId: number, userId: string }>('http://localhost:3000/api/movies/' + userId, movieId)
+      .post<{ movieId: number, userId: string }>('http://localhost:3000/api/movies/' + userId, data)
       .subscribe((resData) => {
         console.log(resData.movieId);
       });
