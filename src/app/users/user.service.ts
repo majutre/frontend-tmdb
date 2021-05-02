@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from './user.model';
 
+import { environment } from 'src/environments/environment';
+
+const BACKEND_URL = environment.backend_url + 'users/';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,33 +21,33 @@ export class UserService {
 
   getUsers() {
     return this.http
-      .get<User[]>('http://localhost:3000/api/users');
+      .get<User[]>(BACKEND_URL);
   }
 
   getUser(id: string){
-    return this.http.get<User>('http://localhost:3000/api/users/' + id);
+    return this.http.get<User>(BACKEND_URL + id);
   }
  
   addUser(user: User){
     this.http
-      .post<{message: string, userId: string}>('http://localhost:3000/api/users/signup', user)
+      .post<{ message: string, userId: string }>(BACKEND_URL, user)
       .subscribe((resData) => {
         console.log(resData.message);       
       });
   }
 
   editUser(user: User) {
-    this.http.put('http://localhost:3000/api/users' + user._id, user);
+    this.http.put(BACKEND_URL + user._id, user);
   }
 
   deleteUser(id: string){
-    this.http.delete<void>('http://localhost:3000/api/users/' + id).subscribe(() => {
+    this.http.delete<void>(BACKEND_URL + id).subscribe(() => {
       console.log('User deleted.');
     });
   }
 
   getMovieListByUserId(id: string) {
-    return this.http.get('http://localhost:3000/api/movies/list/' + id);
+    return this.http.get(environment.backend_url + 'movies/list/' + id);
   }
   // getMovieUpdateListener() {
   //   return this.moviesUpdated.asObservable();

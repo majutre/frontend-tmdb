@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Movie } from 'src/app/shared/movies/movie.model';
 import { environment } from 'src/environments/environment';
 
+
+const BACKEND_URL = environment.backend_url + 'movies/';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +54,7 @@ export class MovieService {
     }
 
     this.http
-      .post<{ movieId: number, userId: string }>('http://localhost:3000/api/movies/' + userId, data)
+      .post<{ movieId: number, userId: string }>(BACKEND_URL + userId, data)
       .subscribe((resData) => {
         console.log(resData);
       });
