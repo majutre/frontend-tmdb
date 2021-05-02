@@ -1,6 +1,9 @@
-import { UserService } from './../user.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Movie } from 'src/app/shared/movies/movie.model';
+
 import { User } from '../user.model';
+import { AuthService } from './../../core/auth/auth.service';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'app-user-movie-list',
@@ -9,11 +12,13 @@ import { User } from '../user.model';
 })
 export class UserMovieListComponent implements OnInit {
 
-  users: User[] = [];
-  constructor(private service: UserService) { }
+  userId: string;
+  movieList: Movie[];
+  
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-   
+    this.userId = this.authService.getUserId();
   }
 
 }

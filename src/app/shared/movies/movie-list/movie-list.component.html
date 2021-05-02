@@ -1,1 +1,31 @@
-<p>movie-list works!</p>
+<div class="row">
+  <div class="col-md-1"></div>
+
+    <div class="card col-md-10 mt-3">
+        <div class="card-body">
+            <div *ngFor="let movie of movies" class="movie-card mx-2 my-2">
+         
+                <div class="card" style="width: 18rem;">
+                    <img [src]="[imgUrl + movie.poster_path]" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.id }}</p>
+                        <div *ngIf="userIsAuthenticated">
+                            <button 
+                                type="button" 
+                                class="btn btn-dark" 
+                                (click)="onAddMovie(movie.id)">Adicionar
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-primary"
+                            (click)="onGetDetails(movie.id)">Detalhes
+                        </button>
+                    </div>
+                </div>   
+          
+            </div>
+        </div>
+    </div>
+
+</div>
+

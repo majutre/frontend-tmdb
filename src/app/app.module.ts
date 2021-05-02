@@ -12,6 +12,7 @@ import { UserMovieListComponent } from './users/user-movie-list/user-movie-list.
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { MovieListComponent } from './shared/movies/movie-list/movie-list.component';
+import { MovieDetailsComponent } from './shared/movies/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MovieListComponent } from './shared/movies/movie-list/movie-list.compon
     UserMovieListComponent,
     NavBarComponent,
     LoginComponent,
-    MovieListComponent
+    MovieListComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,

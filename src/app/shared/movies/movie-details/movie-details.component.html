@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-1"></div>
+
+  <div class="card col-md-10 mt-3">
+    <img [src]="[imgUrl + selectedMovie.poster_path]" alt="">
+    <div class="card-title">{{ selectedMovie?.title }}</div>
+    <div class="card-body">
+
+
+        <div class="">
+          <i *ngFor="let genre of selectedMovie?.genres" class="ui orange label">{{ genre.name }}</i>
+        </div>
+
+    </div>
+  </div>
+
+</div>
