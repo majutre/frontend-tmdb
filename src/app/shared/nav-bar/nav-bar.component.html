@@ -15,9 +15,11 @@
     <li class="nav-item">
       <a class="nav-link nb-link" routerLink="/filmes">Filmes</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
+    <li class="nav-item" *ngIf="userIsAuthenticated">
+      <a class="nav-link nb-link" routerLink="/usuario">Minha Lista</a>
     </li>
-
+    <li class="nav-item" *ngIf="userIsAuthenticated">
+      <a class="nav-link nb-link" [routerLink]="['/cadastro/editar/' + userId ]">Atualizar Cadastro</a>
+    </li>
   </ul>
 </nav>

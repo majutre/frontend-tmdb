@@ -14,17 +14,12 @@
           <label for="email">E-mail</label>
           <input name="email" ngModel class="form-control" #emailInput="ngModel" required email>
         </div>
-        <div *ngIf="emailInput.invalid">
-          Por favor, preencha um e-mail válido.
-        </div>
-
+       
         <div class="form-group">
           <label for="cpf">CPF</label>
           <input name="cpf" ngModel class="form-control" placeholder="Digite apenas números." #cpfInput="ngModel" required>
         </div> 
-        <div *ngIf="cpfInput.invalid">
-            Por favor, preencha um CPF válido.
-        </div>
+       
 
         <!-- <div class="form-group">
           <label for="password">CPF</label>

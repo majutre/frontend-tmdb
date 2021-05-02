@@ -40,6 +40,10 @@ export class UserService {
       console.log('User deleted.');
     });
   }
+
+  getMovieListByUserId(id: string) {
+    return this.http.get('http://localhost:3000/api/movies/list/' + id);
+  }
   // getMovieUpdateListener() {
   //   return this.moviesUpdated.asObservable();
   // }

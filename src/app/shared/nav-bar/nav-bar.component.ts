@@ -8,6 +8,7 @@ import { AuthService } from './../../core/auth/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
+  userId: string;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
@@ -20,6 +21,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.userId = this.authService.getUserId();
   }
 
   onLogout(){

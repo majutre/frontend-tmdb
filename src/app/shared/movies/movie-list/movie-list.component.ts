@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 import { MovieService } from '../movie.service';
-import * as movieList from '../../../mock-db/db.json'
 import { Movie, MoviePopular } from './../movie.model';
 import { Router } from '@angular/router';
 @Component({
@@ -34,14 +33,14 @@ export class MovieListComponent implements OnInit {
       });
     this.movieService.getPopularMovies()
       .subscribe((data: MoviePopular) => {
-        this.movies = data.results;
-        console.log('movies: ', this.movies);
-        
+        this.movies = data.results;        
       })
   }
 
   onAddMovie(id: number) {
     this.movieService.addMovie(id, this.userId);
+    console.log(id);
+    
   }
 
   onGetDetails(id: number) {

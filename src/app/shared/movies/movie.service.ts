@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MovieService {
 
-  private movies: Movie[] = [];
+  private movies: any[] = [];
   url: string = environment.api_url;
   searchUrl: string = environment.api_searchUrl;
   apiKey: string = environment.api_key;
@@ -24,6 +24,16 @@ export class MovieService {
 
   getMovieDetails(movie_id): Observable<any> {
     return this.http.get(`${this.url}/${movie_id}?api_key=${this.apiKey}`)
+  }
+
+  getDetailsAndPush(movie_id) {
+    this.http.get(`${this.url}/${movie_id}?api_key=${this.apiKey}`).subscribe(res => {
+      this.movies.push(res);
+    });    
+  }
+
+  getMovies() {
+    return this.movies;
   }
 
   searchMovies(query, page?): Observable<any> {
@@ -44,7 +54,7 @@ export class MovieService {
     this.http
       .post<{ movieId: number, userId: string }>('http://localhost:3000/api/movies/' + userId, data)
       .subscribe((resData) => {
-        console.log(resData.movieId);
+        console.log(resData);
       });
 
   }

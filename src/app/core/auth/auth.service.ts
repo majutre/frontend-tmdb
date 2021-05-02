@@ -85,6 +85,7 @@ export class AuthService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
+        this.userId = null;
         this.authStatusListener.next(false);
         clearTimeout(this.tokenTimer);
         this.clearAuthData();
@@ -115,7 +116,7 @@ export class AuthService {
         const expirationDate = localStorage.getItem('expiration');
         const userId = localStorage.getItem('userId');
 
-        if (!token || !expirationDate) {
+        if (!token || !expirationDate || !userId) {
             return;
         }
         

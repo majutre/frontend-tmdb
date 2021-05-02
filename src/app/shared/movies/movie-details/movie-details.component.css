@@ -18,3 +18,7 @@
 .smaller {
     font-size: 12px;
 }
+
+.text-justified {
+    text-align: justify;
+}

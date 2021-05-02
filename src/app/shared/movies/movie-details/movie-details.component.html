@@ -22,6 +22,10 @@
         <a *ngIf="selectedMovie?.homepage" href="{{ selectedMovie?.homepage }}">
           <span class="btn btn-sm btn-outline-primary">Site Oficial</span>
         </a>
+        <hr>
+        <div class="text-box">
+            <b>Sinopse: </b><p class="text-justified">{{ selectedMovie?.overview }}</p>
+        </div>
       </div>
     </div>
   </div>

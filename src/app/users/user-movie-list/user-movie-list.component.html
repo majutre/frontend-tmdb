@@ -1,5 +1,39 @@
-<p>user-movie-list works!</p>
-<div *ngFor="let user">
-<h3>{{ user.userName }}</h3>
-<h3>{{ user.userEmail }}</h3>
-</div>
+<div class="row">
+
+  <div class="col-md-2"></div>
+
+  <div class="card w-50 col-xs-6 col-md-8 mt-3">
+    <div class="card-body">
+
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Poster</th>
+            <th>Nome do filme</th>
+            <th>Nota</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let movie of movieList">
+            <td>{{ movie.poster_path }}</td>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.vote_average }}</td>
+
+            <td>
+                <button type="button" class="btn btn-outline-warning ml-2 btn-sm ml-2">
+                    <i class="bi bi-star"></i>
+                </button>
+                <button type="button" [routerLink]="'#'" class="btn btn-dark btn-sm ml-2" (click)="onGetDetails(movie.id)">
+                    <i class="bi bi-film" ></i>
+                </button>
+                <button [routerLink]="'#'" class="btn btn-secondary ml-2 btn-sm" (click)="onDeleteMovie(movie.id)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
